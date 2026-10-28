@@ -7,13 +7,13 @@ const games=[
 {id:'ttt',name:'دوز دو نفره',icon:'⭕',desc:'با دوستت روی یک دستگاه بازی کن.',category:'board',tags:['دو نفره','دسته','لمسی'],devices:['console','pc','mobile']},
 {id:'memory',name:'حافظه تصویری',icon:'🧠',desc:'جفت‌های مشابه را پیدا کن و حافظه‌ات را بسنج.',category:'puzzle',tags:['فکری','کیبورد','لمسی'],devices:['console','pc','mobile']}
 ];
-const q: (s: string) => any = (s: string) => document.querySelector(s), qa: (s: string) => any[] = (s: string): any[] => Array.from(document.querySelectorAll(s));
+const q: (s: string) => any = (s: string) => document.querySelector(s), qa: (s: string) => any[] = (s: string): any[] => Array.from(document.querySelectorAll<HTMLElement>(s));
 let category='all',device='all',consoleMode=false,currentGame=null,gameCleanup=null,focusIndex=0,padConnected=false,lastPadButtons=[],lastPadDir=null,gameState=null,loopId=null;
 const app=q('#app'),modal=q('#modal'),area=q('#gameArea'),toast=q('#toast');
 const faNum=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);
 function render(){
- const q=q('#search').value.trim().toLowerCase();
- const list=games.filter(g=>(category==='all'||g.category===category)&&(device==='all'||(device==='console'?g.devices.includes('console'):g.devices.includes('mobile')||g.devices.includes('pc')))&&(!q||(g.name+' '+g.desc+' '+g.tags.join(' ')).toLowerCase().includes(q)));
+ const searchTerm=q('#search').value.trim().toLowerCase();
+ const list=games.filter(g=>(category==='all'||g.category===category)&&(device==='all'||(device==='console'?g.devices.includes('console'):g.devices.includes('mobile')||g.devices.includes('pc')))&&(!searchTerm||(g.name+' '+g.desc+' '+g.tags.join(' ')).toLowerCase().includes(searchTerm)));
  q('#games').innerHTML=list.map(g=>'<button class="game-card" data-game="'+g.id+'" tabindex="0" aria-label="اجرای '+g.name+'"><div class="art" aria-hidden="true">'+g.icon+'</div><div class="info"><h3>'+g.name+'</h3><p>'+g.desc+'</p><div class="tags">'+g.tags.map(t=>'<span class="tag">'+t+'</span>').join('')+'</div></div></button>').join('');
  q('#count').textContent=faNum(list.length)+' بازی';
  q('#empty').style.display=list.length?'none':'block';
