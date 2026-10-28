@@ -7,7 +7,7 @@ const games=[
 {id:'ttt',name:'دوز دو نفره',icon:'⭕',desc:'با دوستت روی یک دستگاه بازی کن.',category:'board',tags:['دو نفره','دسته','لمسی'],devices:['console','pc','mobile']},
 {id:'memory',name:'حافظه تصویری',icon:'🧠',desc:'جفت‌های مشابه را پیدا کن و حافظه‌ات را بسنج.',category:'puzzle',tags:['فکری','کیبورد','لمسی'],devices:['console','pc','mobile']}
 ];
-const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const $: (s: string) => any = (s: string) => document.querySelector(s), $: (s: string) => any[] = (s: string): any[] => Array.from(document.querySelectorAll(s));
 let category='all',device='all',consoleMode=false,currentGame=null,gameCleanup=null,focusIndex=0,padConnected=false,lastPadButtons=[],lastPadDir=null,gameState=null,loopId=null;
 const app=$('#app'),modal=$('#modal'),area=$('#gameArea'),toast=$('#toast');
 const faNum=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d]);
